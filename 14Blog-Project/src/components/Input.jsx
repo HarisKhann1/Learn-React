@@ -20,3 +20,5 @@ const Input = React.forwardRef(function Input({label, type = "text", className =
         </div>
     )
 })
+
+export default Input
