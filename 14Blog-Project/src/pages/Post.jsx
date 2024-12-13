@@ -54,7 +54,7 @@ export default function Post() {
                             </Button>
                         </div>
                     )}
-                </div>
+                </div>    
                 <div className="w-full mb-6">
                     <h1 className="text-2xl font-bold">{post.title}</h1>
                 </div>
