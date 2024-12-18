@@ -10,7 +10,7 @@ export default function Home(props) {
     useEffect(() => {
         service.getPosts().then((posts) => {
             if (posts) {
-                setPosts(posts.documents)
+                setPosts(posts.documents)                                
             }
         })
     }, [])
@@ -33,7 +33,7 @@ export default function Home(props) {
             <Container>
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (
-                       <div key={post.$id} className='p-2'>
+                       <div key={post.$id} className='p-2'>                            
                             <PostCard {...post} />
                        </div>
                     ))}

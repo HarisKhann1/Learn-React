@@ -42,7 +42,7 @@ export class Services{
     }
 
     // delete a post
-    async updatePost(slug) {
+    async deletePost(slug) {
         try {
             await this.databases.deleteDocument(
                 conf.appWriteDatabaseId,

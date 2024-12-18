@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function PostForm({post}) {
+    console.log(post);
+    
+    
     const {
             register, handleSubmit, watch,
             setValue, getValues, control
@@ -20,7 +23,7 @@ export default function PostForm({post}) {
             }
         );
     const navigate = useNavigate();
-    const userData = useSelector(state => state.user.userData);
+    const userData = useSelector((state) => state.auth.userData);
      
     const submit = async (data) => {
         // for update post
@@ -64,20 +67,36 @@ export default function PostForm({post}) {
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === 'string') {
-            return value.trim().toLowerCase().replace(/^[a-zA-Z\d\s]+/g, '-').replace(/\s/g, '-'); 
+            // Convert to lowercase, trim leading/trailing spaces
+            return value
+                .trim() // Remove whitespace from both ends
+                .toLowerCase() // Convert to lowercase
+                .replace(/[^a-z0-9\s-]/g, '') // Remove non-alphanumeric characters (except spaces and hyphens)
+                .replace(/\s+/g, '-') // Replace spaces (one or more) with a single hyphen
+                .replace(/--+/g, '-') // Replace multiple hyphens with a single hyphen
+                .replace(/^-+|-+$/g, ''); // Remove leading or trailing hyphens
         }
         return '';
     }, []);
+    
 
     React.useEffect(() => {
-        const subscription = watch((value, {name}) => {
+        // For creating a new post, if no post exists, set the slug based on title.
+        if (post && post.title) {
+            const generatedSlug = slugTransform(post.title);
+            setValue('slug', generatedSlug, { shouldValidate: true });
+        }
+
+        // Set up slug for new posts as the title is typed
+        const subscription = watch((value, { name }) => {
             if (name === 'title') {
-                setValue('slug', slugTransform(value.title), {shouldValidate: true});
+                const generatedSlug = slugTransform(value.title);
+                setValue('slug', generatedSlug, { shouldValidate: true });
             }
-        })
-        
-        return () => subscription.unsubscribe();
-     }, [watch, slugTransform, setValue])
+        });
+
+        return () => subscription.unsubscribe();  // Cleanup subscription on unmount
+    }, [post, setValue, slugTransform, watch]);
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -110,7 +129,7 @@ export default function PostForm({post}) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            src={service.filePreview(post.featuredImage)}
                             alt={post.title}
                             className="rounded-lg"
                         />

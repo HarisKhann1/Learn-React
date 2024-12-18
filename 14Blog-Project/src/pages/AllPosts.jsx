@@ -7,7 +7,7 @@ export default function AllPosts(props) {
 
     useEffect(() => {
         service.getPosts([])
-        .then((posts) => {
+        .then((posts) => {            
             if (posts) {
                 setPosts(posts.documents)
             }
@@ -18,12 +18,12 @@ export default function AllPosts(props) {
     return (
        <div className='w-full py-8'>
             <Container >
-                <div className='flex flex-wrap'>
-                    {posts.map((post) => {
+                <div className='flex flex-wrap text-black'>
+                    {posts.map((post) => (
                         <div key={post.$id} className='p-2 w-1/4'>
-                            <PostCard post={post}/>
+                            <PostCard {...post}/>
                         </div>
-                    })}
+                    ))}
                 </div>
             </Container>
        </div>

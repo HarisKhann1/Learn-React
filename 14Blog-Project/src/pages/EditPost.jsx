@@ -7,7 +7,7 @@ export default function EditPost(props) {
     const [post, setPost] = React.useState(null);
     const {slug} = useParams();
     const navigate = useNavigate();
-
+    
     useEffect(() => {
         if (slug) {
             service.getPost(slug)
@@ -21,8 +21,9 @@ export default function EditPost(props) {
         }
             
     }, [slug, navigate])
+    
     return post ? (
-        <div className='py-8'>
+        <div className='py-8 '>
             <Container>
                 <PostForm post={post}/>
             </Container>
