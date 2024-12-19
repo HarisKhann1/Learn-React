@@ -1,6 +1,7 @@
 import React from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import {Controller} from 'react-hook-form'
+import conf from '../conf/conf'
 
 export default function RTE({name, control, label, defaultValue = ''}) { 
     // the control in responsible to transfer the state of the editor to the form in another component (parent component).
@@ -14,6 +15,7 @@ export default function RTE({name, control, label, defaultValue = ''}) {
                 control = {control}
                 render={({ field: { onChange } }) => (
                     <Editor
+                        apiKey = {conf.rteAPIKey}
                         initialValue={defaultValue}
                         init={{
                             initialValue: defaultValue,

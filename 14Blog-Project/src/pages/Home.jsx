@@ -29,9 +29,9 @@ export default function Home(props) {
     }
 
     return (
-        <div className='w-full py-8'>
+        <div className='w-full py-8 bg-[#f5f3ef] h-screen'>
             <Container>
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap w-full'>
                     {posts.map((post) => (
                        <div key={post.$id} className='p-2'>                            
                             <PostCard {...post} />

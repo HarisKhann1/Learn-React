@@ -37,10 +37,10 @@ export default function Header(props) {
     ]
 
     return (
-        <header className='py-3 shadow bg-gray-500'>
+        <header className='w-full text-black font-semibold bg-slate-100 shadow-lg'>
             <Container>
-                <nav className='flex'>
-                    <div className='mr-4'>
+                <nav className='flex items-center h-20'>
+                    <div className='mr-4 pl-4'>
                         <Logo width='70px'/>
                     </div>
                     <ul className='flex ml-auto'>

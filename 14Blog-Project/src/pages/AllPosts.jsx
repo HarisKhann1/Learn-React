@@ -16,7 +16,7 @@ export default function AllPosts(props) {
 
 
     return (
-       <div className='w-full py-8'>
+       <div className='w-full py-8 h-screen'>
             <Container >
                 <div className='flex flex-wrap text-black'>
                     {posts.map((post) => (
